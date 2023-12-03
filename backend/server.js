@@ -1,14 +1,15 @@
 import express from "express";
 import connection from "./config/db.js";
+import path from "path";
 
 const app = express();
 const PORT = 5000;
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
+/* app.get("/", (req, res) => {
   res.send("haiiii");
-});
+}); */
 
 app.get("/api/get", (req, res) => {
   connection.query(
@@ -157,6 +158,13 @@ app.delete("/api/data/:id", (req, res) => {
     console.log(result);
   });
 });
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "/frontend/build")));
+
+app.get("*", (req, res) =>
+  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

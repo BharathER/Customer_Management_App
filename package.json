@@ -9,7 +9,8 @@
     "start": "node backend/server.js",
     "client": "cd frontend && npm start",
     "server": "nodemon backend/server.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\" "
+    "dev": "concurrently \"npm run server\" \"npm run client\" ",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
@@ -22,5 +23,3 @@
     "nodemon": "^3.0.1"
   }
 }
-
-
