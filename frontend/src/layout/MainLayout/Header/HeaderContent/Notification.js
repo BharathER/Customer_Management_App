@@ -140,21 +140,21 @@ const Notification = () => {
                                             <ListItemAvatar>
                                                 <Avatar
                                                     sx={{
-                                                        color: 'success.main',
-                                                        bgcolor: 'success.lighter'
+                                                        color: 'primary.main',
+                                                        bgcolor: 'primary.lighter'
                                                     }}
                                                 >
-                                                    <GiftOutlined />
+                                                    <MessageOutlined />
                                                 </Avatar>
                                             </ListItemAvatar>
                                             <ListItemText
                                                 primary={
                                                     <Typography variant="h6">
-                                                        It&apos;s{' '}
+                                                        4{' '}
                                                         <Typography component="span" variant="subtitle1">
-                                                            Cristina danny&apos;s
+                                                            Customer added
                                                         </Typography>{' '}
-                                                        birthday today.
+                                                        today.
                                                     </Typography>
                                                 }
                                                 secondary="2 min ago"
@@ -180,46 +180,18 @@ const Notification = () => {
                                             <ListItemText
                                                 primary={
                                                     <Typography variant="h6">
+                                                        1{' '}
                                                         <Typography component="span" variant="subtitle1">
-                                                            Aida Burg
+                                                            Customer updated
                                                         </Typography>{' '}
-                                                        commented your post.
+                                                        today.
                                                     </Typography>
                                                 }
-                                                secondary="5 August"
+                                                secondary="2 min ago"
                                             />
                                             <ListItemSecondaryAction>
                                                 <Typography variant="caption" noWrap>
-                                                    6:00 PM
-                                                </Typography>
-                                            </ListItemSecondaryAction>
-                                        </ListItemButton>
-                                        <Divider />
-                                        <ListItemButton>
-                                            <ListItemAvatar>
-                                                <Avatar
-                                                    sx={{
-                                                        color: 'error.main',
-                                                        bgcolor: 'error.lighter'
-                                                    }}
-                                                >
-                                                    <SettingOutlined />
-                                                </Avatar>
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary={
-                                                    <Typography variant="h6">
-                                                        Your Profile is Complete &nbsp;
-                                                        <Typography component="span" variant="subtitle1">
-                                                            60%
-                                                        </Typography>{' '}
-                                                    </Typography>
-                                                }
-                                                secondary="7 hours ago"
-                                            />
-                                            <ListItemSecondaryAction>
-                                                <Typography variant="caption" noWrap>
-                                                    2:45 PM
+                                                    12:00 AM
                                                 </Typography>
                                             </ListItemSecondaryAction>
                                         </ListItemButton>
@@ -232,26 +204,54 @@ const Notification = () => {
                                                         bgcolor: 'primary.lighter'
                                                     }}
                                                 >
-                                                    C
+                                                    <MessageOutlined />
                                                 </Avatar>
                                             </ListItemAvatar>
                                             <ListItemText
                                                 primary={
                                                     <Typography variant="h6">
+                                                        12{' '}
                                                         <Typography component="span" variant="subtitle1">
-                                                            Cristina Danny
+                                                            Customer deleted
                                                         </Typography>{' '}
-                                                        invited to join{' '}
-                                                        <Typography component="span" variant="subtitle1">
-                                                            Meeting.
-                                                        </Typography>
+                                                        today.
                                                     </Typography>
                                                 }
-                                                secondary="Daily scrum meeting time"
+                                                secondary="12 min ago"
                                             />
                                             <ListItemSecondaryAction>
                                                 <Typography variant="caption" noWrap>
-                                                    9:10 PM
+                                                    7:00 AM
+                                                </Typography>
+                                            </ListItemSecondaryAction>
+                                        </ListItemButton>
+                                        <Divider />
+                                        <ListItemButton>
+                                            <ListItemAvatar>
+                                                <Avatar
+                                                    sx={{
+                                                        color: 'primary.main',
+                                                        bgcolor: 'primary.lighter'
+                                                    }}
+                                                >
+                                                    <MessageOutlined />
+                                                </Avatar>
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                primary={
+                                                    <Typography variant="h6">
+                                                        4{' '}
+                                                        <Typography component="span" variant="subtitle1">
+                                                            Customer added
+                                                        </Typography>{' '}
+                                                        today.
+                                                    </Typography>
+                                                }
+                                                secondary="2 hr ago"
+                                            />
+                                            <ListItemSecondaryAction>
+                                                <Typography variant="caption" noWrap>
+                                                    3:00 PM
                                                 </Typography>
                                             </ListItemSecondaryAction>
                                         </ListItemButton>
