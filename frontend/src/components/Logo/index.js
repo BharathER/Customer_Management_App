@@ -10,9 +10,10 @@ import config from 'config';
 
 // ==============================|| MAIN LOGO ||============================== //
 
-const LogoSection = ({ sx, to }) => (
-    <ButtonBase disableRipple component={Link} to={!to ? config.defaultPath : to} sx={sx}>
-        <Logo />
+const LogoSection = ({ to }) => (
+    <ButtonBase disableRipple component={Link} to={!to ? config.defaultPath : to}>
+        {/* <Logo /> */}
+        <h2>Management App</h2>
     </ButtonBase>
 );
 

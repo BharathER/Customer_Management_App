@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaRegUserCircle } from 'react-icons/fa';
 
 // material-ui
-import { Grid, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
+import { Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 
 // project import
 import MainCard from 'components/MainCard';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 // assets
 
-import axios from 'axios';
+import Axios from 'axios';
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
@@ -26,27 +28,20 @@ const DashboardDefault = () => {
     // const [slot, setSlot] = useState('week');
 
     useEffect(() => {
-        axios
-            .get('/api/get')
+        fetchData();
+    }, []);
+
+    const fetchData = () => {
+        Axios.get('/api/get')
             .then((result) => {
                 //console.log(result.data);
                 setCustomerData(result.data);
             })
-            .catch((err) => {});
-    }, []);
-
-    function createData(name, calories, fat, carbs, protein) {
-        return { name, calories, fat, carbs, protein };
-    }
-
-    const rows = [
-        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-        createData('Eclair', 262, 16.0, 24, 6.0),
-        createData('Cupcake', 305, 3.7, 67, 4.3),
-        createData('Gingerbread', 356, 16.0, 49, 3.9)
-    ];
-
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+    //console.log(customerData);
     const prePage = () => {
         if (currentPage !== 1) {
             setCurrentPage(currentPage - 1);
@@ -59,6 +54,20 @@ const DashboardDefault = () => {
         if (currentPage !== npages) {
             setCurrentPage(currentPage + 1);
         }
+    };
+
+    const deleteHandler = async (id) => {
+        await Axios.delete(`/api/data/${id}`)
+            .then((response) => {
+                console.log(response);
+                if (response.status === 200) {
+                    toast.success('Customer Record Deleted');
+                    fetchData();
+                }
+            })
+            .catch((error) => {
+                console.log('Error fetching data:', error);
+            });
     };
 
     return (
@@ -82,18 +91,17 @@ const DashboardDefault = () => {
 
             {/* row 3 */}
             <Grid item xs={12} md={12} lg={12}>
-                <Grid container xs={12} md={12} lg={12}>
+                <Grid container item xs={12} md={12} lg={12}>
                     <Grid item>
-                        <Button href="customer-add" variant="outlined">
-                            <p>Add Customer</p>
-                        </Button>
+                        <Link to="/customer-add">
+                            <Button variant="contained" startIcon={<FaRegUserCircle />}>
+                                Add Customer
+                            </Button>
+                        </Link>
                     </Grid>
                     <Grid item />
                 </Grid>
-                {/* <Grid container alignItems="center" justifyContent="space-between">
-                    
-                    <Grid item />
-                </Grid> */}
+
                 <MainCard sx={{ mt: 2 }} content={false}>
                     {/* <OrdersTable /> */}
                     <TableContainer component={Paper}>
@@ -138,12 +146,14 @@ const DashboardDefault = () => {
                                         <TableCell align="right">{row.District}</TableCell>
                                         <TableCell align="right">{row.Country}</TableCell>
                                         <TableCell align="center">
-                                            <Button variant="contained">
-                                                <FaEdit />
-                                            </Button>
+                                            <Link to={`customer-edit/${row.ResidentsPermitID}`}>
+                                                <Button variant="contained">
+                                                    <FaEdit />
+                                                </Button>
+                                            </Link>
                                         </TableCell>
                                         <TableCell align="center">
-                                            <Button variant="outlined">
+                                            <Button variant="outlined" onClick={() => deleteHandler(row.ResidentsPermitID)}>
                                                 <FaTrash />
                                             </Button>
                                         </TableCell>
@@ -152,27 +162,9 @@ const DashboardDefault = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    {/* <Pagination>
-                    <Pagination.Prev onClick={prePage} />
-                    {numbers.map((n, i) =>
-                      currentPage === n ? (
-                        <Pagination.Item
-                          active
-                          onClick={() => changeCurrentPage(n)}
-                        >
-                          {n}
-                        </Pagination.Item>
-                      ) : (
-                        <Pagination.Item onClick={() => changeCurrentPage(n)}>
-                          {n}
-                        </Pagination.Item>
-                      )
-                    )}
 
-                    <Pagination.Next onClick={nextPage} />
-                  </Pagination> */}
                     <div
-                        class="pagination"
+                        className="pagination"
                         style={{ display: 'inline - block', color: 'black', float: 'left', padding: '8px 16px', textDecoration: 'none' }}
                     >
                         <a
@@ -182,18 +174,27 @@ const DashboardDefault = () => {
                         >
                             &laquo;
                         </a>
-                        {numbers.map((n, i) =>
+                        {numbers.map((n, key) =>
                             currentPage === n ? (
                                 <a
+                                    key={key}
                                     href="#"
-                                    active
                                     onClick={() => changeCurrentPage(n)}
-                                    style={{ color: 'black', float: 'left', padding: '8px 16px', textDecoration: 'none' }}
+                                    style={{
+                                        color: currentPage === n ? 'white' : 'black',
+                                        backgroundColor: currentPage === n ? '#096DD9' : 'transparent',
+                                        float: 'left',
+                                        padding: '8px 16px',
+                                        textDecoration: 'none',
+                                        borderRadius: '4px',
+                                        margin: '2px'
+                                    }}
                                 >
                                     {n}
                                 </a>
                             ) : (
                                 <a
+                                    key={key}
                                     href="#"
                                     onClick={() => changeCurrentPage(n)}
                                     style={{ color: 'black', float: 'left', padding: '8px 16px', textDecoration: 'none' }}

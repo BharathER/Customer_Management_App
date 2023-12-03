@@ -40,9 +40,14 @@ const MainRoutes = {
             ]
         },
         {
-            path: 'customer-add',
+            path: '/customer-add',
             element: <CustomerAdd />
         },
+        {
+            path: '/customer-edit/:id',
+            element: <CustomerAdd />
+        },
+
         {
             path: 'shadow',
             element: <Shadow />
