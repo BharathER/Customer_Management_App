@@ -29,8 +29,6 @@ const CustomerAdd = () => {
 
     const { id } = useParams();
 
-    console.log(id);
-
     let navigate = useNavigate();
 
     const input1Ref = useRef();
@@ -121,6 +119,7 @@ const CustomerAdd = () => {
         }
 
         if (id) {
+            console.log('edit');
             Axios.put('/api/data', {
                 CustomerName: name,
                 ResidentsPermitID: rpid,
@@ -148,6 +147,7 @@ const CustomerAdd = () => {
                     console.log(error);
                 });
         } else {
+            console.log('add');
             Axios.post('/api/data', {
                 CustomerName: name,
                 ResidentsPermitID: rpid,
@@ -162,13 +162,17 @@ const CustomerAdd = () => {
                 State: state,
                 District: district,
                 Country: country
-            }).then((response) => {
-                if (response.status === 200) {
-                    toast.success('Customer data added successfully');
-                    let path = `/`;
-                    navigate(path);
-                }
-            });
+            })
+                .then((response) => {
+                    if (response.status === 200) {
+                        toast.success('Customer data added successfully');
+                        let path = `/`;
+                        navigate(path);
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     };
 

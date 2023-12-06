@@ -59,7 +59,7 @@ app.post("/api/data", (req, res) => {
   } = req.body;
 
   connection.query(
-    "INSERT INTO Customer (CustomerName, ResidentsPermitID, CustomerMobile, HouseName, AreaNumber, StreetNumber, StreetName, BuildNumber, LocationGPS, LocationName, State, District, Country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO customer (CustomerName, ResidentsPermitID, CustomerMobile, HouseName, AreaNumber, StreetNumber, StreetName, BuildNumber, LocationGPS, LocationName, State, District, Country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [
       CustomerName,
       ResidentsPermitID,
@@ -104,7 +104,7 @@ app.put("/api/data", (req, res) => {
   } = req.body;
 
   const UPDATE_QUERY = `
-  UPDATE Customer
+  UPDATE customer
   SET 
     CustomerName = ?,
     ResidentsPermitID = ?,

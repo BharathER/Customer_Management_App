@@ -18,6 +18,7 @@ import Axios from 'axios';
 
 const DashboardDefault = () => {
     const [customerData, setCustomerData] = useState([]);
+    const [customerDataCount, setCustomerDataCount] = useState();
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 5;
     const lastIndex = currentPage * recordsPerPage;
@@ -34,8 +35,8 @@ const DashboardDefault = () => {
     const fetchData = () => {
         Axios.get('/api/get')
             .then((result) => {
-                //console.log(result.data);
                 setCustomerData(result.data);
+                setCustomerDataCount(result.data.length.toString());
             })
             .catch((err) => {
                 console.log(err);
@@ -75,7 +76,7 @@ const DashboardDefault = () => {
             {/* row 1 */}
 
             <Grid item xs={12} sm={6} md={4} lg={3}>
-                <AnalyticEcommerce title="Total Customers" count="4,42,236" percentage={59.3} />
+                <AnalyticEcommerce title="Total Customers Added" count={customerDataCount} percentage={59.3} extra="10" />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}>
                 <AnalyticEcommerce title="Total Users" count="78,250" percentage={70.5} extra="8,900" />
@@ -127,38 +128,44 @@ const DashboardDefault = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {reccords.map((row, key) => (
-                                    <TableRow key={key} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                        <TableCell component="th" scope="row">
-                                            {lastIndex === recordsPerPage ? key + 1 : key + lastIndex}
-                                        </TableCell>
-                                        <TableCell align="right">{row.ResidentsPermitID}</TableCell>
-                                        <TableCell align="right">{row.CustomerName}</TableCell>
-                                        <TableCell align="right">{row.CustomerMobile}</TableCell>
-                                        <TableCell align="right">{row.HouseName}</TableCell>
-                                        <TableCell align="right">{row.AreaNumber}</TableCell>
-                                        <TableCell align="right">{row.StreetNumber}</TableCell>
-                                        <TableCell align="right">{row.StreetName}</TableCell>
-                                        <TableCell align="right">{row.BuildNumber}</TableCell>
-                                        <TableCell align="right">{row.LocationGPS}</TableCell>
-                                        <TableCell align="right">{row.LocationName}</TableCell>
-                                        <TableCell align="right">{row.State}</TableCell>
-                                        <TableCell align="right">{row.District}</TableCell>
-                                        <TableCell align="right">{row.Country}</TableCell>
-                                        <TableCell align="center">
-                                            <Link to={`customer-edit/${row.ResidentsPermitID}`}>
-                                                <Button variant="contained">
-                                                    <FaEdit />
-                                                </Button>
-                                            </Link>
-                                        </TableCell>
-                                        <TableCell align="center">
-                                            <Button variant="outlined" onClick={() => deleteHandler(row.ResidentsPermitID)}>
-                                                <FaTrash />
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
+                                {reccords.map(
+                                    (row, key) => (
+                                        console.log('lastIndex : ', lastIndex),
+                                        console.log('recordsPerPage : ', recordsPerPage),
+                                        (
+                                            <TableRow key={key} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                                <TableCell component="th" scope="row">
+                                                    {lastIndex - recordsPerPage + key + 1}
+                                                </TableCell>
+                                                <TableCell align="right">{row.ResidentsPermitID}</TableCell>
+                                                <TableCell align="right">{row.CustomerName}</TableCell>
+                                                <TableCell align="right">{row.CustomerMobile}</TableCell>
+                                                <TableCell align="right">{row.HouseName}</TableCell>
+                                                <TableCell align="right">{row.AreaNumber}</TableCell>
+                                                <TableCell align="right">{row.StreetNumber}</TableCell>
+                                                <TableCell align="right">{row.StreetName}</TableCell>
+                                                <TableCell align="right">{row.BuildNumber}</TableCell>
+                                                <TableCell align="right">{row.LocationGPS}</TableCell>
+                                                <TableCell align="right">{row.LocationName}</TableCell>
+                                                <TableCell align="right">{row.State}</TableCell>
+                                                <TableCell align="right">{row.District}</TableCell>
+                                                <TableCell align="right">{row.Country}</TableCell>
+                                                <TableCell align="center">
+                                                    <Link to={`customer-edit/${row.ResidentsPermitID}`}>
+                                                        <Button variant="contained">
+                                                            <FaEdit />
+                                                        </Button>
+                                                    </Link>
+                                                </TableCell>
+                                                <TableCell align="center">
+                                                    <Button variant="outlined" onClick={() => deleteHandler(row.ResidentsPermitID)}>
+                                                        <FaTrash />
+                                                    </Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    )
+                                )}
                             </TableBody>
                         </Table>
                     </TableContainer>
